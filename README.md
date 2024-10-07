@@ -1,5 +1,3 @@
-# Dbc_reader
-
 Script R para leitura e análise de arquivos DBC.
 
 1 - Baixar os arquivos conforme parâmetro do usuário (mês inicial, mês final e uf).
