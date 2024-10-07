@@ -1,0 +1,52 @@
+# Diretório de pacotes instalados (opcional, pode incluir se os pacotes não forem compartilhados)
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Arquivos de cache de projetos RStudio
+.Rproj.user/
+.Rhistory
+.RData
+
+# Arquivos do RStudio
+*.Rproj
+*.RData
+*.Rhistory
+*.Ruserdata
+
+# Logs de compilação e relatórios
+*.out
+*.log
+*.aux
+*.blg
+*.bbl
+*.tex
+
+# Arquivos de gráficos gerados
+*.pdf
+*.png
+*.jpeg
+*.jpg
+
+# Resultados de scripts
+*.csv
+*.tsv
+*.txt
+
+# Pacotes instalados localmente
+renv/library/
+renv/staging/
+
+# Ignorar pacotes criados por packrat
+packrat/lib/
+packrat/src/
+
+# Bibliotecas locais
+library/
+
+# Outros arquivos de configuração
+*.o
+*.so
+*.dll
+*.exe
