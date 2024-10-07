@@ -1,0 +1,4 @@
+"YEAR";"TABLE";"LINK";"PATH";"DATE"
+"ALL";"DS_INFO";"ftp://ftp2.datasus.gov.br//public/sistemas/tup/downloads/TabelaUnificada_202404_v2404031505.zip";"/DS_INFO/procedimentos.csv";2024-04-17 16:03:02.275421
+"ALL";"DS_INFO";"ftp://ftp2.datasus.gov.br//public/sistemas/tup/downloads/TabelaUnificada_202404_v2404031505.zip";"/DS_INFO/forma_organizacao.csv";2024-04-17 16:07:59.925439
+"ALL";"DS_INFO";"ftp://ftp2.datasus.gov.br//public/sistemas/tup/downloads/TabelaUnificada_202404_v2404031505.zip";"/DS_INFO/procedimentos.csv";2024-04-18 15:25:12.553667

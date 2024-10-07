@@ -281,6 +281,15 @@ download_sih <- function(ano = "2024", dir_out = "", log_file = "log.txt") {
   ##-- ftp
   ftp <- "ftp://ftp.datasus.gov.br/dissemin/publicos/SIHSUS/200801_/Dados/"
   
+  listar_arquivos_ftp <- function(url) {
+    files <- getURL(url, ftp.use.epsv = FALSE, dirlistonly = TRUE)
+    files <- str_split(files, "\n")[[1]]
+    files <- gsub("\r", "", files) # Remove caracteres de retorno de carro
+    return(files)
+  }
+  
+  arquivos <- listar_arquivos_ftp(url_ftp)
+  
   ##-- Variáveis de interesse
   vars_out <- c("ANO", "MES", "ANO_INTER", "MES_INTER", "ANO_SAIDA", "MES_SAIDA", 
                 "MUN_ESTAB", "CNES_ESTAB", "ID", "MUN_RES", "ALVO", "VLR", "QTD")
@@ -291,6 +300,13 @@ download_sih <- function(ano = "2024", dir_out = "", log_file = "log.txt") {
   links_sih <- getURL(ftp, ftp.use.epsv = TRUE, dirlistonly = TRUE) %>%
     str_split(pattern = "\n", simplify = TRUE) %>%
     str_subset(pattern = sih_pattern)
+  
+  View(links_sih)
+  
+  print(links_sih)
+  
+  # Filtrar apenas o arquivo "RDRJ2401.DBC"
+  links_sih <- links_sih[grepl("RDRJ2401.DBC", links_sih)]
   
   if(length(links_sih) == 0) stop("Não há dados para o ano escolhido")
   
@@ -371,6 +387,9 @@ download_sia <- function(ano = "2018", dir_out = "", log_file = "log.txt"){
     str_split(pattern = "\n", simplify = TRUE) %>%
     str_subset(pattern = sia_pattern)
   
+  # Filtrar apenas o arquivo "PARJ2401.DBC"
+  links_sia <- links_sia[grepl("PARJ2401.DBC", links_sia)]
+  
   if(length(links_sia) == 0) stop("Não há dados para o ano escolhido")
   
   dir_out <- sprintf("%s/%s/SIA", dir_out, ano)
@@ -427,12 +446,16 @@ download_sia <- function(ano = "2018", dir_out = "", log_file = "log.txt"){
 ##-- Baixa informações sobre os grupos, subgrupos, forma de organização e procedimentos ----
 download_dsinfo <- function(level = "forma_organizacao", dir_out = "", log_file = "log.txt"){
   
+  level <- "procedimento"
+  dir_out <- "" 
+  log_file <- "log.txt"
+  
   if(!(level %in% c("forma_organizacao", "procedimento"))) 
     "No momento só aceitamos 'forma_organizacao' ou 'procedimento' para esse argumento "
   
   ##-- ftp
   # ftp <- "ftp://ftp2.datasus.gov.br/public/sistemas/dsweb/SIHD/Arquivos/Tabela_Unificada_201607_2016_07_12.zip"
-  ftp <- "ftp://ftp2.datasus.gov.br/public/sistemas/dsweb/SIHD/Arquivos/Tabela_Unificada_202207_2022_07_08.zip"
+  ftp <- "ftp://ftp2.datasus.gov.br//public/sistemas/tup/downloads/TabelaUnificada_202404_v2404031505.zip"
   dir_out <- sprintf("%s/DS_INFO", dir_out)
   dir.create(dir_out, recursive = TRUE, showWarnings = FALSE)
   
@@ -698,4 +721,12 @@ rob_mean <- function(x, trim, ...){
   mean_trim <- mean(x, ...)
   
   return(mean_trim)
+}
+
+
+listar_arquivos_ftp <- function(url) {
+  files <- getURL(url, ftp.use.epsv = FALSE, dirlistonly = TRUE)
+  files <- strsplit(files, "\r\n")[[1]]
+  files <- files[grep("^TabelaUnificada", files)]  # Filtrando apenas os arquivos que começam com "TabelaUnificada"
+  files
 }
